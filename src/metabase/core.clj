@@ -129,7 +129,7 @@
       ;; create setup token
       (-init-create-setup-token)
       ;; publish install event
-      (events/publish-event :install {}))
+      (events/publish-event! :install {}))
     (reset! metabase-initialization-progress 0.9)
 
     ;; deal with our sample dataset as needed
@@ -251,6 +251,13 @@
   (println "System timezone:" (System/getProperty "user.timezone"))
   (println "Language:" (System/getProperty "user.language"))
   (println "File encoding:" (System/getProperty "file.encoding")))
+
+(defn ^:command api-documentation
+  "Generate a markdown file containing documentation for all API endpoints. This is written to a file called `docs/api-documentation.md`."
+  []
+  (require 'metabase.cmd.endpoint-dox)
+  ((resolve 'metabase.cmd.endpoint-dox/generate-dox!)))
+
 
 (defn- cmd->fn [command-name]
   (or (when (seq command-name)
