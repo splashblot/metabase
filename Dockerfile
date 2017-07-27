@@ -24,6 +24,9 @@ RUN rm -f /usr/lib/jvm/default-jvm/jre/lib/security/cacerts && \
 ADD https://raw.github.com/technomancy/leiningen/stable/bin/lein /usr/local/bin/lein
 RUN chmod 744 /usr/local/bin/lein
 
+# add datasets to the image
+ADD . /datasets
+
 # add the application source to the image
 ADD . /app/source
 
